@@ -1,5 +1,6 @@
 package com.example.budgeteer
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.budgeteer.ui.theme.BudgeteerTheme
@@ -30,16 +33,15 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
 
         val kupals = listOf(
-            Kupals("Joed", "Secoya", 26),
-            Kupals("Cchan", "Uy", 22),
-            Kupals("Hermi", "Timtim", 21),
-            Kupals("Lucky", "Uayan", 24),
-            Kupals("Chow", "Taboada", 16),
-            Kupals("Lance", "Salera", 12)
+            Kupals("This is a text", "Joed Kupal", KupalsType.TEXT),
+            Kupals("This is a text", "Cchan Kupal", KupalsType.TEXT),
+            Kupals("This is an image", "Lance Kupal", KupalsType.IMAGE),
+            Kupals("This is a video", "Rico Kupal", KupalsType.VIDEO),
+            Kupals("This is an image", "Menec Kupal", KupalsType.IMAGE),
+            Kupals("This is a video", "Kenj Kupal", KupalsType.VIDEO),
         )
 
-        val kupalTitle: String = "Mga Kupals"
-        val legalAgeKupals = kupals.filter { it.age >= 18 }
+        val kupalTitle = "Mga Kupals"
 
         setContent {
             BudgeteerTheme {
@@ -47,8 +49,18 @@ class MainActivity : ComponentActivity() {
                     item(kupalTitle) {
                         KupalTitle(title = kupalTitle)
                     }
-                    items(legalAgeKupals) {
-                        ShowKupals(it)
+                    items(kupals) {
+                        when (it.type) {
+                            KupalsType.TEXT -> {
+                                ShowKupalsText(it)
+                            }
+                            KupalsType.IMAGE -> {
+                                ShowKupalsImage(it)
+                            }
+                            KupalsType.VIDEO -> {
+                                ShowKupalsVideo(it)
+                            }
+                        }
                     }
                 }
             }
@@ -56,6 +68,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//@Preview
 @Composable
 fun KupalTitle(title: String) {
     Card(
@@ -65,14 +78,15 @@ fun KupalTitle(title: String) {
             text = title,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
+            fontSize = 28.sp,
             modifier = Modifier.padding(12.dp)
         )
     }
 }
 
+//@Preview
 @Composable
-fun ShowKupals(kupal: Kupals) {
+fun ShowKupalsText(kupal: Kupals) {
     Card(
         modifier = Modifier.fillMaxSize().padding(12.dp)
     ) {
@@ -84,16 +98,53 @@ fun ShowKupals(kupal: Kupals) {
             )
             Column {
                 Text(
-                    text = "First Name: " + kupal.firstName,
+                    text = kupal.header,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 14.dp)
                 )
                 Text(
-                    text = "Last Name: " + kupal.lastName
-                )
-                Text(
-                    text = "Age: " + kupal.age
+                    text = "Title: " + kupal.text,
+                    modifier = Modifier.padding(top = 10.dp)
                 )
             }
         }
+    }
+}
+
+@Composable
+fun ShowKupalsImage(kupal: Kupals) {
+    Card(
+        modifier = Modifier.fillMaxSize().padding(12.dp)
+    ) {
+        Text(
+            text = kupal.header,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 12.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.person_vector),
+            contentDescription = "Sample image",
+            modifier = Modifier.height(350.dp).width(350.dp)
+        )
+    }
+}
+
+@Composable
+fun ShowKupalsVideo(kupal: Kupals) {
+    Card(
+        modifier = Modifier.fillMaxSize().padding(12.dp)
+    ) {
+        Text(
+            text = kupal.header,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 12.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.person_vector),
+            contentDescription = "Sample video",
+            modifier = Modifier.height(350.dp).width(350.dp)
+        )
     }
 }
