@@ -1,10 +1,8 @@
-package com.example.budgeteer
+package com.example.budgeteer.composables
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,10 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.budgeteer.classes.Kupals
+import com.example.budgeteer.classes.KupalsType
+import com.example.budgeteer.R
 import com.example.budgeteer.ui.theme.BudgeteerTheme
 
 class MainActivity : ComponentActivity() {

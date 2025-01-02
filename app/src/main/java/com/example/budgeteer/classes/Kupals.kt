@@ -1,4 +1,4 @@
-package com.example.budgeteer
+package com.example.budgeteer.classes
 
 data class Kupals(
     val header: String,
