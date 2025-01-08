@@ -112,4 +112,207 @@ fun ShowRow() {
             )
         }
     }
-}*/
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@ExperimentalMaterial3Api
+@Composable
+fun ShowSideNavigationBar() {
+    val navigationController = rememberNavController()
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val context = LocalContext.current.applicationContext
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = true,
+        drawerContent = {
+            ModalDrawerSheet {
+                Box(
+                    modifier = Modifier
+                        .background(SteelBlue)
+                        .fillMaxWidth()
+                        .height(150.dp)
+                ) {
+
+                }
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = {
+                        Text(
+                            text = "All Budget List",
+                            color = SteelBlue
+                        )
+                    },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.ShoppingCart,
+                            contentDescription = "budget list",
+                            tint = SteelBlue
+                        )
+                   },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                        navigationController.navigate(Screens.AllBudgetList.screen) {
+                            popUpTo(0)
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    label = {
+                        Text(
+                            text = "Profile",
+                            color = SteelBlue
+                        )
+                    },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = "profile",
+                            tint = SteelBlue
+                        )
+                   },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                        navigationController.navigate(Screens.Profile.screen) {
+                            popUpTo(0)
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    label = {
+                        Text(
+                            text = "Logout",
+                            color = SteelBlue
+                        )
+                    },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "settings",
+                            tint = SteelBlue
+                        )
+                   },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                        navigationController.navigate(Screens.Settings.screen) {
+                            popUpTo(0)
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    label = {
+                        Text(
+                            text = "Logout",
+                            color = SteelBlue
+                        )
+                    },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "logout",
+                            tint = SteelBlue
+                        )
+                    },
+                    onClick = {
+                        coroutineScope.launch {
+                            drawerState.close()
+                        }
+                        Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
+    ) {
+        Scaffold(
+            topBar = {
+                val coroutineScope = rememberCoroutineScope()
+                TopAppBar (
+                    title = {
+                        Text(text = "Budgeteer")
+                    },
+                    navigationIcon = {
+                        IconButton (
+                            onClick = {
+                                coroutineScope.launch {
+                                    drawerState.open()
+                                }
+                            }
+                        ) {
+                            Icon(
+                                Icons.Rounded.Menu,
+                                contentDescription = "menu button",
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = SteelBlue,
+                        titleContentColor = Color.White,
+                        navigationIconContentColor = Color.White
+                    ),
+                    actions = {
+                        IconButton (
+                            onClick = {
+                                Toast.makeText(context, "Clicked notifications icon", Toast.LENGTH_SHORT).show()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Notifications,
+                                contentDescription = "Notifications Icon",
+                                tint = Color.White
+                            )
+                        }
+                        IconButton (
+                            onClick = {
+                                Toast.makeText(context, "Clicked notifications icon", Toast.LENGTH_SHORT).show()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Notifications,
+                                contentDescription = "Notifications Icon",
+                                tint = Color.White
+                            )
+                        }
+                        IconButton (
+                            onClick = {
+                                Toast.makeText(context, "Clicked notifications icon", Toast.LENGTH_SHORT).show()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Notifications,
+                                contentDescription = "Notifications Icon",
+                                tint = Color.White
+                            )
+                        }
+                    }
+                )
+            }
+        ) {
+            NavHost(
+                navController = navigationController,
+                startDestination = Screens.AllBudgetList.screen
+            ) {
+                composable(Screens.AllBudgetList.screen) {
+                    AllBudgetList()
+                }
+                composable(Screens.Profile.screen) {
+                    Profile()
+                }
+                composable(Screens.Settings.screen) {
+                    Settings()
+                }
+            }
+        }
+    }
+}
+*/

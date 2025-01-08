@@ -4,4 +4,5 @@ sealed class Screens(val screen: String) {
     data object AllBudgetList: Screens("allBudgetList")
     data object Profile: Screens("profile")
     data object Settings: Screens("settings")
+    data object BajeetBot: Screens("bajeetbot")
 }
