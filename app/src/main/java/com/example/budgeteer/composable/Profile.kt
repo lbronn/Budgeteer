@@ -1,4 +1,4 @@
-package com.example.budgeteer.composables
+package com.example.budgeteer.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

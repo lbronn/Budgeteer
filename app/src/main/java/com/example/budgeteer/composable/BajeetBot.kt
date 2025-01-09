@@ -1,4 +1,4 @@
-package com.example.budgeteer.composables
+package com.example.budgeteer.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import com.example.budgeteer.ui.theme.SteelBlue
 
 @Composable
-fun Settings() {
+fun BajeetBot() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -25,7 +25,7 @@ fun Settings() {
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "Settings",
+                text = "Bajeet Chatbot",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = SteelBlue
