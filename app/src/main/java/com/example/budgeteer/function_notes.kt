@@ -315,4 +315,179 @@ fun ShowSideNavigationBar() {
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("RememberReturnType", "UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun ShowBottomNavigationBar() {
+    val navigationController = rememberNavController()
+    val context = LocalContext.current.applicationContext
+    val selected = remember {
+        mutableStateOf(Icons.Default.Home)
+    }
+    val sheetState = rememberModalBottomSheetState()
+    var showBottomSheet by remember {
+        mutableStateOf(false)
+    }
+
+    Scaffold(
+        bottomBar = {
+            BottomAppBar(
+                containerColor = SteelBlue
+            ) {
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Default.Person
+                        navigationController.navigate(Screens.Profile.screen) {
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(
+                        Icons.Default.Person,
+                        contentDescription = "profile",
+                        modifier = Modifier.size(26.dp),
+                        tint = if(selected.value == Icons.Default.Person) Color.White else Color.Gray
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Default.AccountBox
+                        navigationController.navigate(Screens.BajeetBot.screen) {
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(
+                        Icons.Default.AccountBox,
+                        contentDescription = "bajeet bot",
+                        modifier = Modifier.size(26.dp),
+                        tint = if(selected.value == Icons.Default.AccountBox) Color.White else Color.Gray
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    FloatingActionButton(
+                        onClick = {
+                            showBottomSheet = true
+                        }
+                    ) {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = "add button",
+                            tint = SteelBlue
+                        )
+                    }
+                }
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Default.ShoppingCart
+                        navigationController.navigate(Screens.AllBudgetList.screen) {
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(
+                        Icons.Default.ShoppingCart,
+                        contentDescription = "budget list",
+                        modifier = Modifier.size(26.dp),
+                        tint = if(selected.value == Icons.Default.ShoppingCart) Color.White else Color.Gray
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        selected.value = Icons.Default.Settings
+                        navigationController.navigate(Screens.Settings.screen) {
+                            popUpTo(0)
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Icon(
+                        Icons.Default.Settings,
+                        contentDescription = "settings",
+                        modifier = Modifier.size(26.dp),
+                        tint = if(selected.value == Icons.Default.Settings) Color.White else Color.Gray
+                    )
+                }
+            }
+        }
+    ) { paddingValues ->
+        NavHost(
+            navController = navigationController,
+            startDestination = Screens.Profile.screen,
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            composable(Screens.Profile.screen) {
+                Profile()
+            }
+            composable(Screens.BajeetBot.screen) {
+                BajeetBot()
+            }
+            composable(Screens.AllBudgetList.screen) {
+                AllBudgetList()
+            }
+            composable(Screens.Settings.screen) {
+                Settings()
+            }
+            composable(Screens.AddBudget.screen) {
+                AddBudget()
+            }
+        }
+    }
+
+    if(showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                showBottomSheet = false
+            },
+            sheetState = sheetState
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.23f)
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                BottomSheetItem(
+                    image = Icons.Default.ShoppingCart,
+                    text = "Add a Budget"
+                ) {
+                    showBottomSheet = false
+                    navigationController.navigate(Screens.AddBudget.screen) {
+                        popUpTo(0)
+                    }
+                }
+                BottomSheetItem(
+                    image = Icons.Default.Favorite,
+                    text = "Add your favorite budgets"
+                ) {
+                    Toast.makeText(
+                        context,
+                        "Add your favorite budgets",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                BottomSheetItem(
+                    image = Icons.Default.Create,
+                    text = "Write your budget journals here"
+                ) {
+                    Toast.makeText(
+                        context,
+                        "Write your journal here",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+}
 */
