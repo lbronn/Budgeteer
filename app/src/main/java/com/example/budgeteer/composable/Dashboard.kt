@@ -1,10 +1,7 @@
 package com.example.budgeteer.composable
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -58,20 +54,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.budgeteer.composableScreensHandler.Screens
-import com.example.budgeteer.ui.theme.BudgeteerTheme
+import androidx.navigation.NavHostController
+import com.example.budgeteer.routesManagement.Screens
 import com.example.budgeteer.ui.theme.SteelBlue
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Dashboard() {
-    val navigationController = rememberNavController()
+fun Dashboard(navController: NavHostController) {
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val context = LocalContext.current.applicationContext
@@ -113,9 +104,7 @@ fun Dashboard() {
                         coroutineScope.launch {
                             drawerState.close()
                         }
-                        navigationController.navigate(Screens.Profile.screen) {
-                            popUpTo(0)
-                        }
+                        navController.navigate(Screens.Profile.route)
                     }
                 )
                 NavigationDrawerItem(
@@ -136,9 +125,7 @@ fun Dashboard() {
                         coroutineScope.launch {
                             drawerState.close()
                         }
-                        navigationController.navigate(Screens.Notifications.screen) {
-                            popUpTo(0)
-                        }
+                        navController.navigate(Screens.Notifications.route)
                     }
                 )
                 NavigationDrawerItem(
@@ -159,9 +146,7 @@ fun Dashboard() {
                         coroutineScope.launch {
                             drawerState.close()
                         }
-                        navigationController.navigate(Screens.AllBudgetList.screen) {
-                            popUpTo(0)
-                        }
+                        navController.navigate(Screens.AllBudgetList.route)
                     }
                 )
                 NavigationDrawerItem(
@@ -182,11 +167,11 @@ fun Dashboard() {
                         coroutineScope.launch {
                             drawerState.close()
                         }
-                        Toast.makeText(
-                            context,
-                            "Logged out",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        navController.navigate(Screens.Login.route) {
+                            popUpTo(Screens.Login.route) {
+                                inclusive = true
+                            }
+                        }
                     }
                 )
             }
@@ -228,9 +213,7 @@ fun Dashboard() {
                     IconButton(
                         onClick = {
                             selected.value = Icons.Default.Person
-                            navigationController.navigate(Screens.Profile.screen) {
-                                popUpTo(0)
-                            }
+                            navController.navigate(Screens.Profile.route)
                         },
                         modifier = Modifier.weight(1f)
                     ) {
@@ -244,9 +227,7 @@ fun Dashboard() {
                     IconButton(
                         onClick = {
                             selected.value = Icons.Default.AccountBox
-                            navigationController.navigate(Screens.BajeetBot.screen) {
-                                popUpTo(0)
-                            }
+                            navController.navigate(Screens.BajeetBot.route)
                         },
                         modifier = Modifier.weight(1f)
                     ) {
@@ -278,9 +259,7 @@ fun Dashboard() {
                     IconButton(
                         onClick = {
                             selected.value = Icons.Default.ShoppingCart
-                            navigationController.navigate(Screens.AllBudgetList.screen) {
-                                popUpTo(0)
-                            }
+                            navController.navigate(Screens.AllBudgetList.route)
                         },
                         modifier = Modifier.weight(1f)
                     ) {
@@ -294,9 +273,7 @@ fun Dashboard() {
                     IconButton(
                         onClick = {
                             selected.value = Icons.Default.Settings
-                            navigationController.navigate(Screens.Settings.screen) {
-                                popUpTo(0)
-                            }
+                            navController.navigate(Screens.Settings.route)
                         },
                         modifier = Modifier.weight(1f)
                     ) {
@@ -310,29 +287,7 @@ fun Dashboard() {
                 }
             }
         ) {
-            NavHost(
-                navController = navigationController,
-                startDestination = Screens.Profile.screen
-            ) {
-                composable(Screens.Profile.screen) {
-                    Profile()
-                }
-                composable(Screens.BajeetBot.screen) {
-                    BajeetBot()
-                }
-                composable(Screens.AllBudgetList.screen) {
-                    AllBudgetList()
-                }
-                composable(Screens.Settings.screen) {
-                    Settings()
-                }
-                composable(Screens.AddBudget.screen) {
-                    AddBudget()
-                }
-                composable(Screens.Notifications.screen) {
-                    Notifications()
-                }
-            }
+
         }
 
         if(showBottomSheet) {
@@ -354,9 +309,7 @@ fun Dashboard() {
                         text = "Add a Budget"
                     ) {
                         showBottomSheet = false
-                        navigationController.navigate(Screens.AddBudget.screen) {
-                            popUpTo(0)
-                        }
+                        navController.navigate(Screens.AddBudget.route)
                     }
                     BottomSheetItem(
                         image = Icons.Default.Favorite,

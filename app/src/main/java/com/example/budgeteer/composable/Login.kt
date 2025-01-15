@@ -1,11 +1,7 @@
 package com.example.budgeteer.composable
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,32 +29,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.budgeteer.ui.theme.BudgeteerTheme
 import com.example.budgeteer.ui.theme.SteelBlue
-
-class LoginScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-        installSplashScreen()
-        setContent {
-            BudgeteerTheme {
-                Box (
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    val navController = rememberNavController()
-                    NavGraph(navController)
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun Login(loginSuccess: () -> Unit) {
@@ -170,24 +141,6 @@ fun Login(loginSuccess: () -> Unit) {
                 fontSize = 20.sp,
                 color = Color.White
             )
-        }
-    }
-}
-
-@Composable
-fun NavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "login") {
-        composable("login") {
-            Login(
-                loginSuccess = {
-                    navController.navigate("dashboard") {
-                        popUpTo(0)
-                    }
-                }
-            )
-        }
-        composable("dashboard") {
-            Dashboard()
         }
     }
 }

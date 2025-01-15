@@ -1,6 +1,8 @@
-package com.example.budgeteer.composableScreensHandler
+package com.example.budgeteer.routesManagement
 
-sealed class Screens(val screen: String) {
+sealed class Screens(val route: String) {
+    data object Login: Screens("login")
+    data object Dashboard: Screens("dashboard")
     data object AllBudgetList: Screens("allBudgetList")
     data object Profile: Screens("profile")
     data object Settings: Screens("settings")
