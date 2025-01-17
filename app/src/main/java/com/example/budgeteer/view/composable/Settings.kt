@@ -1,4 +1,4 @@
-package com.example.budgeteer.composable
+package com.example.budgeteer.view.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import com.example.budgeteer.ui.theme.SteelBlue
 
 @Composable
-fun AllBudgetList() {
+fun Settings() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -25,7 +25,7 @@ fun AllBudgetList() {
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "All Budgets Listed Here",
+                text = "Settings",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = SteelBlue

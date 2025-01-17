@@ -1,4 +1,4 @@
-package com.example.budgeteer.composable
+package com.example.budgeteer.view.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.budgeteer.ui.theme.SteelBlue
 
 @Composable
-fun Settings() {
+fun AddBudget() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -25,7 +26,9 @@ fun Settings() {
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "Settings",
+                text = "Add a budget for your shopping",
+                textAlign = TextAlign.Center,
+                lineHeight = 32.sp,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = SteelBlue

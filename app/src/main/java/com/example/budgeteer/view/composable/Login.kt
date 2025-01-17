@@ -1,4 +1,4 @@
-package com.example.budgeteer.composable
+package com.example.budgeteer.view.composable
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +17,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,19 +25,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.budgeteer.ui.theme.SteelBlue
+import com.example.budgeteer.viewmodel.LoginViewModel
 
 @Composable
-fun Login(loginSuccess: () -> Unit) {
-    var username by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
-    var passwordEntered by remember {
-        mutableStateOf(false)
-    }
+fun Login(loginSuccess: () -> Unit, loginViewModel: LoginViewModel = viewModel()) {
     val context = LocalContext.current.applicationContext
 
     Column(
@@ -50,9 +39,9 @@ fun Login(loginSuccess: () -> Unit) {
         modifier = Modifier.fillMaxSize()
     ) {
         OutlinedTextField(
-            value = username,
+            value = loginViewModel.username,
             onValueChange = {
-                username = it
+                loginViewModel.username = it
             },
             label = {
                 Text(text = "Username")
@@ -81,10 +70,10 @@ fun Login(loginSuccess: () -> Unit) {
         )
 
         OutlinedTextField(
-            value = password,
+            value = loginViewModel.password,
             onValueChange = {
-                password = it
-                passwordEntered = true
+                loginViewModel.password = it
+                loginViewModel.passwordEntered = true
             },
             label = {
                 Text(text = "Password")
@@ -110,12 +99,12 @@ fun Login(loginSuccess: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 30.dp, end = 30.dp, bottom = 10.dp),
-            visualTransformation = if(!passwordEntered) VisualTransformation.None else PasswordVisualTransformation()
+            visualTransformation = if(!loginViewModel.passwordEntered) VisualTransformation.None else PasswordVisualTransformation()
         )
 
         Button(
             onClick = {
-                if(userAuthentication(username, password)) {
+                if(loginViewModel.userAuthentication(loginViewModel.username, loginViewModel.password)) {
                     loginSuccess()
                     Toast.makeText(
                         context,
@@ -143,10 +132,4 @@ fun Login(loginSuccess: () -> Unit) {
             )
         }
     }
-}
-
-private fun userAuthentication(username: String, password: String): Boolean {
-    val validUsername = "admin"
-    val validPassword = "password"
-    return username == validUsername && password == validPassword
 }

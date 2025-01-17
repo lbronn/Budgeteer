@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.budgeteer.composable.Dashboard
-import com.example.budgeteer.composable.Profile
-import com.example.budgeteer.composable.Notifications
-import com.example.budgeteer.composable.AllBudgetList
-import com.example.budgeteer.composable.AddBudget
-import com.example.budgeteer.composable.BajeetBot
-import com.example.budgeteer.composable.Login
-import com.example.budgeteer.composable.Settings
+import com.example.budgeteer.view.composable.Dashboard
+import com.example.budgeteer.view.composable.Profile
+import com.example.budgeteer.view.composable.Notifications
+import com.example.budgeteer.view.composable.AllBudgetList
+import com.example.budgeteer.view.composable.AddBudget
+import com.example.budgeteer.view.composable.BajeetBot
+import com.example.budgeteer.view.composable.Login
+import com.example.budgeteer.view.composable.Settings
 
 @Composable
 fun MainNavHost(navController: NavHostController) {

@@ -1,4 +1,4 @@
-package com.example.budgeteer.composable
+package com.example.budgeteer.view.composable
 
 import android.annotation.SuppressLint
 import android.widget.Toast
@@ -54,15 +54,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.budgeteer.routesManagement.Screens
 import com.example.budgeteer.ui.theme.SteelBlue
+import com.example.budgeteer.viewmodel.DashboardViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Dashboard(navController: NavHostController) {
+fun Dashboard(navController: NavHostController, dashboardViewModel: DashboardViewModel = viewModel()) {
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val context = LocalContext.current.applicationContext
@@ -70,9 +72,6 @@ fun Dashboard(navController: NavHostController) {
         mutableStateOf(Icons.Default.Home)
     }
     val sheetState = rememberModalBottomSheetState()
-    var showBottomSheet by remember {
-        mutableStateOf(false)
-    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -246,7 +245,7 @@ fun Dashboard(navController: NavHostController) {
                     ) {
                         FloatingActionButton(
                             onClick = {
-                                showBottomSheet = true
+                                dashboardViewModel.showBottomSheet = true
                             }
                         ) {
                             Icon(
@@ -290,10 +289,10 @@ fun Dashboard(navController: NavHostController) {
 
         }
 
-        if(showBottomSheet) {
+        if(dashboardViewModel.showBottomSheet) {
             ModalBottomSheet(
                 onDismissRequest = {
-                    showBottomSheet = false
+                    dashboardViewModel.showBottomSheet = false
                 },
                 sheetState = sheetState
             ) {
@@ -308,7 +307,7 @@ fun Dashboard(navController: NavHostController) {
                         image = Icons.Default.ShoppingCart,
                         text = "Add a Budget"
                     ) {
-                        showBottomSheet = false
+                        dashboardViewModel.showBottomSheet = false
                         navController.navigate(Screens.AddBudget.route)
                     }
                     BottomSheetItem(
