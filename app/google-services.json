@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145603608947",
+    "project_id": "thrombolaize",
+    "storage_bucket": "thrombolaize.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145603608947:android:d7f5a636775f08863fc506",
+        "android_client_info": {
+          "package_name": "com.example.budgeteer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY47vqhg3OT-78S2RaHHfmGIQBRUjPy6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

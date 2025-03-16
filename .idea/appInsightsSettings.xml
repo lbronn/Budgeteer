@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.budgeteer" />
+                  <option name="mobileSdkAppId" value="1:145603608947:android:d7f5a636775f08863fc506" />
+                  <option name="projectId" value="thrombolaize" />
+                  <option name="projectNumber" value="145603608947" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

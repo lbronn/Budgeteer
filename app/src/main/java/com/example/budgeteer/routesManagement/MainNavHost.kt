@@ -11,6 +11,7 @@ import com.example.budgeteer.view.composable.AllBudgetList
 import com.example.budgeteer.view.composable.AddBudget
 import com.example.budgeteer.view.composable.BajeetBot
 import com.example.budgeteer.view.composable.Login
+import com.example.budgeteer.view.composable.Register
 import com.example.budgeteer.view.composable.Settings
 
 @Composable
@@ -19,6 +20,19 @@ fun MainNavHost(navController: NavHostController) {
         composable(Screens.Login.route) {
             Login(
                 loginSuccess = {
+                    navController.navigate(Screens.Dashboard.route) {
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                    }
+                },
+                navController = navController
+            )
+        }
+
+        composable(Screens.Register.route) {
+            Register(
+                registerSuccess = {
                     navController.navigate(Screens.Dashboard.route) {
                         popUpTo(navController.graph.startDestinationId) {
                             inclusive = true

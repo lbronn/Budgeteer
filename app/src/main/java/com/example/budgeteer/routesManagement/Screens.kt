@@ -2,6 +2,7 @@ package com.example.budgeteer.routesManagement
 
 sealed class Screens(val route: String) {
     data object Login: Screens("login")
+    data object Register: Screens("register")
     data object Dashboard: Screens("dashboard")
     data object AllBudgetList: Screens("allBudgetList")
     data object Profile: Screens("profile")
